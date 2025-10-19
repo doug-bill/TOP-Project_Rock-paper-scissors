@@ -46,22 +46,22 @@ function playRound(humanChoice, computerChoice) {
       console.log("CPU Choose: " + computerChoice);
       } 
       else if (humanChoice == "Rock" && computerChoice == "Paper"){
-      console.log ("Computer Won!!!");
+      console.log ("Computer won this round!");
       console.log("You Choose: "+humanChoice);
       console.log("CPU Choose: " + computerChoice);
-      computerScore =+ 1;
+      computerScore++ ;
       } 
       else if (humanChoice == "Rock" && computerChoice == "Scissors"){
-       console.log("You've Won!!!");
+       console.log("You've won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
-       humanScore =+1;
+       humanScore++ ;
       }
       else if (humanChoice == "Paper" && computerChoice == "Rock"){
-       console.log("You've Won!!!");
+       console.log("You've won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
-       humanScore =+1;
+       humanScore++ ;
       }
       else if (humanChoice == "Paper" && computerChoice == "Paper"){
        console.log("DRAW");
@@ -69,19 +69,19 @@ function playRound(humanChoice, computerChoice) {
        console.log("CPU Choose: " + computerChoice);
       }
       else if (humanChoice == "Paper" && computerChoice == "Scissors"){
-       console.log("Computer Won!!!");
+       console.log("Computer Won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
        computerScore =+ 1;
       }
       else if (humanChoice == "Scissors" && computerChoice == "Rock"){
-       console.log("Computer Won!!!");
+       console.log("Computer Won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
        computerScore =+ 1;
       }
       else if(humanChoice == "Scissors" && computerChoice == "Paper"){
-       console.log("You've Won!!!");
+       console.log("You've won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
        humanScore =+1;
@@ -92,14 +92,6 @@ function playRound(humanChoice, computerChoice) {
        console.log("CPU Choose: " + computerChoice);
    }
 }
-
-//const humanSelection = getHumanChoice();
-//const computerSelection = getComputerChoice(3);
-
-//playRound(humanSelection, computerSelection);
-
-//console.log("Player Score: " + humanScore);
-//console.log("CPU Score: "+ computerScore);
 
 /*
 
@@ -113,14 +105,28 @@ function playRound(humanChoice, computerChoice) {
 
 function playGame(){
 
-   const humanSelection = getHumanChoice();  
-   const computerSelection = getComputerChoice(3);
-
-   playRound(humanSelection, computerSelection);
+   for (let round = 1; round < 6; round++){
    
-   console.log("Player Score: " + humanScore);
-   console.log("CPU Score: "+ computerScore);
+      console.log("Round: "+ round);
 
+      const humanSelection = getHumanChoice();  
+      const computerSelection = getComputerChoice(3);      
+
+      playRound(humanSelection, computerSelection);  
+    
+      console.log("Player Score: " + humanScore);
+      console.log("CPU Score: "+ computerScore);
+   }
+      var winner;
+
+      if (humanScore > computerScore){
+         winner = "You've Won the Game";
+      }  
+      else {
+         winner = "CPU have Won the Game";
+         }
+
+         alert(winner);
 }
 
 playGame();
