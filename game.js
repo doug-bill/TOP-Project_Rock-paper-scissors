@@ -72,19 +72,19 @@ function playRound(humanChoice, computerChoice) {
        console.log("Computer Won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
-       computerScore =+ 1;
+       computerScore ++;
       }
       else if (humanChoice == "Scissors" && computerChoice == "Rock"){
        console.log("Computer Won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
-       computerScore =+ 1;
+       computerScore ++;
       }
       else if(humanChoice == "Scissors" && computerChoice == "Paper"){
        console.log("You've won this round!");
        console.log("You Choose: "+humanChoice);
        console.log("CPU Choose: " + computerChoice);
-       humanScore =+1;
+       humanScore ++;
       }
       else {
        console.log("DRAW");
