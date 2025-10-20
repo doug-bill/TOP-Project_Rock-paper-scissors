@@ -81,7 +81,6 @@ function playRound(humanChoice, computerChoice) {
    }
 }
 
-
 function playGame(){
 
    for (let round = 1; round < 6; round++){
@@ -101,11 +100,17 @@ function playGame(){
       if (humanScore > computerScore){
          winner = "You've Won the Game";
       }  
-      else {
+      else if (humanScore < computerScore) {
          winner = "CPU have Won the Game";
-         }
+      }
+      else if (humanScore = computerScore) {
+         (alert("The Game ended in a TIE"));
+      }
+      else {
 
          alert(winner);
+      }
 }
+
 
 playGame();
