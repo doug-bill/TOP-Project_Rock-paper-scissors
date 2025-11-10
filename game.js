@@ -25,7 +25,6 @@ function getHumanChoice(){
     return (result);
 }
 
-
 function playRound(humanChoice, computerChoice) {
    
    if (humanChoice == "Rock" && computerChoice == "Rock"){
@@ -81,6 +80,19 @@ function playRound(humanChoice, computerChoice) {
    }
 }
 
+//playRound(humanChoice ="Rock",getComputerChoice(3));
+
+const buttons = document.querySelectorAll("button");
+
+/* buttons.forEach((button) => {
+    button.addEventListener("click",() => {
+       //alert(button.id); 
+       console.log(button.id);
+    });
+}); */
+
+
+/* 
 function playGame(){
 
    for (let round = 1; round < 6; round++){
@@ -113,4 +125,4 @@ function playGame(){
 }
 
 
-playGame();
+playGame(); */
