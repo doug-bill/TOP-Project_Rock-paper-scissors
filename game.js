@@ -1,6 +1,8 @@
 var humanScore = 0;
 var computerScore = 0;
 
+let humanChoice;
+
 function getComputerChoice(max) {
   
    var c = Math.floor(Math.random() * max);
@@ -14,82 +16,165 @@ function getComputerChoice(max) {
    }
 }
 
-function getHumanChoice(){
-   
-    let humanChoice = prompt("Type your choice for the Game:\n 1.Rock\n 2.Paper \n 3.Scissors");
-     
-    const lower = humanChoice.toLowerCase();
-    const firstLetter = lower.slice(0,1);
-    const firstUpper = firstLetter.toUpperCase();
-    const result = firstUpper + lower.slice(1);
-    return (result);
-}
+
+const display = document.getElementById("resultDisplay");
+display.style.height = "30px";
+display.style.width = "275px";
+display.style.margin = "4px";
+display.style.padding = "20px";
+display.textContent = "Result:";
+
+const roundWinner = document.getElementById("roundWinner");
+roundWinner.style.height = "30px";
+roundWinner.style.width = "275px";
+roundWinner.style.margin = "4px";
+roundWinner.style.padding = "20px";
+roundWinner.textContent = "Who will win?";
+
+const score = document.getElementById("Score");
+score.style.margin = "4px";
+score.style.padding = "20px";
+score.style.height = "30px";
+score.style.width = "275px";
+score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
+
 
 function playRound(humanChoice, computerChoice) {
    
    if (humanChoice == "Rock" && computerChoice == "Rock"){
-      console.log("DRAW");
-      console.log("You Choose: "+humanChoice);
-      console.log("CPU Choose: " + computerChoice);
+
+      display.textContent = "DRAW";
+      roundWinner.textContent = "ROCK === ROCK";
+
       } 
       else if (humanChoice == "Rock" && computerChoice == "Paper"){
-      console.log ("Computer won this round!");
-      console.log("You Choose: "+humanChoice);
-      console.log("CPU Choose: " + computerChoice);
+     
+      display.textContent = "CPU WON"; 
+      roundWinner.textContent = "Paper Beats Rock";
       computerScore++ ;
+      score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;   
+
       } 
+
       else if (humanChoice == "Rock" && computerChoice == "Scissors"){
-       console.log("You've won this round!");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
-       humanScore++ ;
+      
+      display.textContent = "You've Won this Round!";
+      roundWinner.textContent = "Rock Beats Scissors";
+      humanScore++;
+      score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
+      
       }
       else if (humanChoice == "Paper" && computerChoice == "Rock"){
-       console.log("You've won this round!");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
+
+       display.textContent = "You've Won this Round!"  
+       roundWinner.textContent = "Paper beats Rock";  
        humanScore++ ;
+       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
       }
       else if (humanChoice == "Paper" && computerChoice == "Paper"){
-       console.log("DRAW");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
+       
+       display.textContent = "DRAW";
+       roundWinner.textContent = "Paper == Paper";
+
       }
       else if (humanChoice == "Paper" && computerChoice == "Scissors"){
-       console.log("Computer Won this round!");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
+      
+       display.textContent = "Computer Won This round";
+       roundWinner.textContent = "Scissors Beats Paper";  
        computerScore ++;
+       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
+
       }
       else if (humanChoice == "Scissors" && computerChoice == "Rock"){
-       console.log("Computer Won this round!");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
+       
+       display.textContent = "Computer Won this Round";
+       roundWinner.textContent = "Rock Beats Scissors";
        computerScore ++;
+       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
+
       }
       else if(humanChoice == "Scissors" && computerChoice == "Paper"){
-       console.log("You've won this round!");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
+       
+       display.textContent = "You've Won This Round";
+       roundWinner.textContent = "Scissors Beats Paper"  
        humanScore ++;
+       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
       }
       else {
        console.log("DRAW");
-       console.log("You Choose: "+humanChoice);
-       console.log("CPU Choose: " + computerChoice);
+       display.textContent = "DRAW";
+       roundWinner.textContent = "Scissors === Scissors";
    }
 }
 
-//playRound(humanChoice ="Rock",getComputerChoice(3));
+const container = document.getElementById("btn_container")
 
-const buttons = document.querySelectorAll("button");
+const btn = document.createElement("button");
+btn.classList.add("button");
+btn.textContent = "Rock";
+btn.style.padding = "8px";
+btn.style.marginLeft = "20px";
+btn.style.marginRight = "10px";
+container.appendChild(btn);
 
-/* buttons.forEach((button) => {
-    button.addEventListener("click",() => {
-       //alert(button.id); 
-       console.log(button.id);
-    });
-}); */
+const btn2 = document.createElement("button");
+btn2.classList.add("button");
+btn2.textContent = "Paper";
+btn2.style.padding = "8px";
+btn2.style.marginRight = "10px";
+container.appendChild(btn2);
+
+const btn3 = document.createElement("button");
+btn3.classList.add("button");
+btn3.textContent = "Scissors";
+btn3.style.padding = "8px";
+btn3.style.marginRight = "10px";
+container.appendChild(btn3);
+
+const buttons = container.querySelectorAll(".button");
+
+container.addEventListener("click", (event) =>{
+   
+   humanChoice = event.target.textContent;
+   playRound(humanChoice , getComputerChoice(3));
+ 
+      var winner;
+
+      if (humanScore == 5){
+        winner = "Player";
+        buttons.forEach(btn => {
+        btn.disabled = true;
+        });
+
+        if(confirm( winner + " Won the Game \nNew Game ?")){
+        window.location.reload();        
+        }
+               
+      } 
+      else if (computerScore == 5){
+        winner = "CPU";
+        
+        buttons.forEach(btn => {
+        btn.disabled = true;
+        });
+
+        if(confirm(winner + " Won the Game \nNew Game ?")){ 
+        window.location.reload();
+      
+        }
+      }
+      else {
+       
+      } 
+   
+  
+
+});
+
+
+
+
+
 
 
 /* 
