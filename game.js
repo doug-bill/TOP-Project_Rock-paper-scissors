@@ -18,94 +18,68 @@ function getComputerChoice(max) {
 
 
 const display = document.getElementById("resultDisplay");
-display.style.height = "30px";
-display.style.width = "275px";
-display.style.margin = "4px";
-display.style.padding = "20px";
+display.style.height = "15px";
+display.style.width = "375px";
+display.style.margin = "auto";
+display.style.marginTop = "24px";
+display.style.padding = "10px";
+display.style.textAlign = "center";
+display.style.background = "white";
 display.textContent = "Result:";
 
 const roundWinner = document.getElementById("roundWinner");
-roundWinner.style.height = "30px";
-roundWinner.style.width = "275px";
-roundWinner.style.margin = "4px";
-roundWinner.style.padding = "20px";
+roundWinner.style.height = "15px";
+roundWinner.style.width = "375px";
+roundWinner.style.margin = "auto";
+roundWinner.style.marginTop = "24px";
+roundWinner.style.textAlign = "center";
+roundWinner.style.background = "white";
+roundWinner.style.padding = "10px";
 roundWinner.textContent = "Who will win?";
 
 const score = document.getElementById("Score");
-score.style.margin = "4px";
-score.style.padding = "20px";
-score.style.height = "30px";
-score.style.width = "275px";
+score.style.margin = "auto";
+score.style.padding = "10px";
+score.style.height = "15px";
+score.style.width = "375px";
+score.style.marginTop = "24px";
+score.style.background = "white";
 score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
 
 
 function playRound(humanChoice, computerChoice) {
-   
-   if (humanChoice == "Rock" && computerChoice == "Rock"){
+  let result = {};
 
-      display.textContent = "DRAW";
-      roundWinner.textContent = "ROCK === ROCK";
+  if (humanChoice === computerChoice) {
+    result = { winner: "Draw", message: `${humanChoice} === ${computerChoice}` };
+  } 
+  else if (
+    (humanChoice === "Rock" && computerChoice === "Scissors") ||
+    (humanChoice === "Paper" && computerChoice === "Rock") ||
+    (humanChoice === "Scissors" && computerChoice === "Paper")
+  ) {
+    humanScore++;
+    result = { winner: "Player", message: `${humanChoice} beats ${computerChoice}` };
+  } 
+  else {
+    computerScore++;
+    result = { winner: "CPU", message: `${computerChoice} beats ${humanChoice}` };
+  }
 
-      } 
-      else if (humanChoice == "Rock" && computerChoice == "Paper"){
-     
-      display.textContent = "CPU WON"; 
-      roundWinner.textContent = "Paper Beats Rock";
-      computerScore++ ;
-      score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;   
-
-      } 
-
-      else if (humanChoice == "Rock" && computerChoice == "Scissors"){
-      
-      display.textContent = "You've Won this Round!";
-      roundWinner.textContent = "Rock Beats Scissors";
-      humanScore++;
-      score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
-      
-      }
-      else if (humanChoice == "Paper" && computerChoice == "Rock"){
-
-       display.textContent = "You've Won this Round!"  
-       roundWinner.textContent = "Paper beats Rock";  
-       humanScore++ ;
-       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
-      }
-      else if (humanChoice == "Paper" && computerChoice == "Paper"){
-       
-       display.textContent = "DRAW";
-       roundWinner.textContent = "Paper == Paper";
-
-      }
-      else if (humanChoice == "Paper" && computerChoice == "Scissors"){
-      
-       display.textContent = "Computer Won This round";
-       roundWinner.textContent = "Scissors Beats Paper";  
-       computerScore ++;
-       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
-
-      }
-      else if (humanChoice == "Scissors" && computerChoice == "Rock"){
-       
-       display.textContent = "Computer Won this Round";
-       roundWinner.textContent = "Rock Beats Scissors";
-       computerScore ++;
-       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
-
-      }
-      else if(humanChoice == "Scissors" && computerChoice == "Paper"){
-       
-       display.textContent = "You've Won This Round";
-       roundWinner.textContent = "Scissors Beats Paper"  
-       humanScore ++;
-       score.textContent = "PLAYER: " + humanScore +" VS " + " CPU: "+ computerScore;
-      }
-      else {
-       console.log("DRAW");
-       display.textContent = "DRAW";
-       roundWinner.textContent = "Scissors === Scissors";
-   }
+  return result;
 }
+
+function updateUI(result) {
+  if (result.winner === "Draw") {
+    display.textContent = "DRAW";
+  } else {
+    display.textContent = `${result.winner} WON this round!`;
+  }
+
+  roundWinner.textContent = result.message;
+  score.textContent = `PLAYER: ${humanScore} VS CPU: ${computerScore}`;
+}
+
 
 const container = document.getElementById("btn_container")
 
@@ -136,11 +110,18 @@ const buttons = container.querySelectorAll(".button");
 container.addEventListener("click", (event) =>{
    
    humanChoice = event.target.textContent;
-   playRound(humanChoice , getComputerChoice(3));
- 
-      var winner;
+   const computerChoice = getComputerChoice(3);
 
-      if (humanScore == 5){
+   const result = playRound(humanChoice , computerChoice);
+   updateUI(result);
+   checkWinner();    
+});
+
+function checkWinner(){
+
+    var winner;
+
+      if (humanScore >= 5){
         winner = "Player";
         buttons.forEach(btn => {
         btn.disabled = true;
@@ -150,64 +131,21 @@ container.addEventListener("click", (event) =>{
         window.location.reload();        
         }
                
-      } 
-      else if (computerScore == 5){
-        winner = "CPU";
+         } 
+         else if (computerScore >= 5){
+          winner = "CPU";
         
-        buttons.forEach(btn => {
-        btn.disabled = true;
-        });
+          buttons.forEach(btn => {
+          btn.disabled = true;
+          });
 
-        if(confirm(winner + " Won the Game \nNew Game ?")){ 
-        window.location.reload();
-      
-        }
-      }
-      else {
-       
-      } 
-   
-  
-
-});
+           if(confirm(winner + " Won the Game \nNew Game ?")){ 
+             window.location.reload();
+             }
+         }
+         else {
+            null;
+         }  
 
 
-
-
-
-
-
-/* 
-function playGame(){
-
-   for (let round = 1; round < 6; round++){
-   
-      console.log("Round: "+ round);
-
-      const humanSelection = getHumanChoice();  
-      const computerSelection = getComputerChoice(3);      
-
-      playRound(humanSelection, computerSelection);  
-    
-      console.log("Player Score: " + humanScore);
-      console.log("CPU Score: "+ computerScore);
-   }
-      var winner;
-
-      if (humanScore > computerScore){
-         winner = "You've Won the Game";
-      }  
-      else if (humanScore < computerScore) {
-         winner = "CPU have Won the Game";
-      }
-      else if (humanScore = computerScore) {
-         (alert("The Game ended in a TIE"));
-      }
-      else {
-
-         alert(winner);
-      }
 }
-
-
-playGame(); */

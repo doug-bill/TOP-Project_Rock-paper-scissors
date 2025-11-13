@@ -1,0 +1,12 @@
+body{
+    background-color:#C3DCF4;
+    background-size:40px  40px;
+    background-image:
+/*     linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey, 1px, transparent 1px); */
+    radial-gradient(circle, #000000 1px, rgba(0,0,0,0) 1px);
+
+    font-family:"Akashar", sans-serif;
+    color:black;
+    text-align: center;
+}
