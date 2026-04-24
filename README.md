@@ -2,7 +2,7 @@
 A dynamic browser game built with Vanilla JavaScript
 
 
-🎮 Demo Preview
+🎮 Demo Preview : https://doug-bill.github.io/TOP-Project_Rock-paper-scissors/
 
 🧠 Simple and fast-paced Rock, Paper, Scissors game built from scratch.
 Click one of the buttons below to challenge the CPU and see who reaches 5 points first!
